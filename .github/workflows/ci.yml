@@ -26,9 +26,7 @@ jobs:
       with:
         repository: meshery/meshery
         fetch-depth: 1
-        path: .
-    - name: tree
-      run: tree .  
+        path: .    
     - name: Setup Go
       uses: actions/setup-go@v2
       with:
@@ -163,6 +161,8 @@ jobs:
           path: ./cypress
       - name: install node modules
         run: cd cypress && npm i
+      - name: tree
+        run: tree .  
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
