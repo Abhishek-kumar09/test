@@ -146,7 +146,7 @@ jobs:
       #     cd ./meshery-consul
       #     go run main.go &
       #     sleep 60
-      - name: Run backend
+      # - name: Run backend
         # env:
         #   PROVIDER_BASE_URLS: http://localhost:9876
         #   PORT: 9081
