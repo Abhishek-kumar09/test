@@ -195,10 +195,19 @@ jobs:
         run: |
           chmod +x ./main
           ./main &
+      - name: checkout cypress code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          path: ./cypress
+      - name: install node modules
+        run: npm i
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          working-directory: ui
+          env: CYPRESS_token=${{secrets.PROVIDER_TOKEN}}
+        with:
+          working-directory: cypress
           start: npm start
           wait-on: http://localhost:3000
           spec: cypress/integration/e2e/**/*
