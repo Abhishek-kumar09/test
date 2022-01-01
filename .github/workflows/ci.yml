@@ -162,7 +162,7 @@ jobs:
       - name: install node modules
         run: cd cypress && npm i
       - name: tree
-        run: tree .  
+        run: ls /home/runner/work/test/test/ui/cypress/cypress/integration/e2e/  
       - name: Cypress run
         uses: cypress-io/github-action@v2
         run: |
@@ -173,7 +173,7 @@ jobs:
           working-directory: ui
           start: npm start
           wait-on: http://localhost:3000
-          spec: ../cypress/cypress/integration/e2e/**
+          spec: /home/runner/work/test/test/ui/cypress/cypress/integration/e2e/**
           record: true
           tag: node-${{ matrix.node }}
         env:
