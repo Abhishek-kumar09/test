@@ -27,6 +27,8 @@ jobs:
         repository: meshery/meshery
         fetch-depth: 1
         path: .
+    - name: tree
+      run: tree .  
     - name: Setup Go
       uses: actions/setup-go@v2
       with:
