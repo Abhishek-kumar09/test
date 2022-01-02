@@ -97,11 +97,11 @@ jobs:
           repository: meshery/meshery
           fetch-depth: 0
           path: .
-      - name: Check out meshery-consul code
-        uses: actions/checkout@v2
-        with:
-          repository: layer5io/meshery-consul
-          path: ./meshery-consul
+      # - name: Check out meshery-consul code
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: layer5io/meshery-consul
+      #     path: ./meshery-consul
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -128,32 +128,32 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/lockfiles') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Create k8s Kind Cluster
-        uses: helm/kind-action@v1.1.0
-        with:
-          cluster_name: "kind-cluster"
-      - name: Build Next App
-        run: |
-          cd ui
-          npm i
-          npm run build
-          npm run export
-      - name: Update /etc/hosts
-        run: echo "127.0.0.1 mesherylocal.layer5.io" | sudo tee -a /etc/hosts
-      - name: Run meshery-consul
-        run: |
-          mkdir -p /home/runner/.meshery/bin
-          cd ./meshery-consul
-          go run main.go &
-          sleep 60
-      - name: Run backend
-        env:
-          PROVIDER_BASE_URLS: http://localhost:9876
-          PORT: 9081
-          ADAPTER_URLS: "mesherylocal.layer5.io:10000 mesherylocal.layer5.io:10001 mesherylocal.layer5.io:10002 mesherylocal.layer5.io:10003 mesherylocal.layer5.io:10004 mesherylocal.layer5.io:10008 mesherylocal.layer5.io:10009 mesherylocal.layer5.io:10007"
-        run: |
-          chmod +x ./main
-          ./main &
+      # - name: Create k8s Kind Cluster
+      #   uses: helm/kind-action@v1.1.0
+      #   with:
+      #     cluster_name: "kind-cluster"
+      # - name: Build Next App
+      #   run: |
+      #     cd ui
+      #     npm i
+      #     npm run build
+      #     npm run export
+      # - name: Update /etc/hosts
+      #   run: echo "127.0.0.1 mesherylocal.layer5.io" | sudo tee -a /etc/hosts
+      # - name: Run meshery-consul
+      #   run: |
+      #     mkdir -p /home/runner/.meshery/bin
+      #     cd ./meshery-consul
+      #     go run main.go &
+      #     sleep 60
+      # - name: Run backend
+      #   env:
+      #     PROVIDER_BASE_URLS: http://localhost:9876
+      #     PORT: 9081
+      #     ADAPTER_URLS: "mesherylocal.layer5.io:10000 mesherylocal.layer5.io:10001 mesherylocal.layer5.io:10002 mesherylocal.layer5.io:10003 mesherylocal.layer5.io:10004 mesherylocal.layer5.io:10008 mesherylocal.layer5.io:10009 mesherylocal.layer5.io:10007"
+      #   run: |
+      #     chmod +x ./main
+      #     ./main &
       - name: checkout cypress code
         uses: actions/checkout@v2
         with:
@@ -161,6 +161,7 @@ jobs:
           path: ./cypress
       - name: Move cypress tests
         run: |
+          ls
           rm -rf ui/cypress/integration/e2e
           mv cypress/integration/e2e ui/cypress/integration/
           tree ui/cypress
