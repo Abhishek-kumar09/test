@@ -180,3 +180,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_token: ${{ secrets.PROVIDER_TOKEN }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-ss
+          path: ui/cypress/screenshots
+      - name: Upload Videos
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-ss
+          path: ui/cypress/videos
