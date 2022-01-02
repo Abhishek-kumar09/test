@@ -161,14 +161,9 @@ jobs:
           path: ./cypress
       - name: Move cypress tests
         run: |
-          ls
-          pwd
-          tree cypress/cypress
-          tree ui/cypress/
           rm -rf ui/cypress
           mv cypress/cypress ui/
           mv cypress/cypress.json ui/cypress.json
-          tree ui/cypress 
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
@@ -181,11 +176,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_token: ${{ secrets.PROVIDER_TOKEN }}
       - name: Upload artifacts
+        if: failure()
         uses: actions/upload-artifact@v2
         with:
           name: cypress-ss
           path: ui/cypress/screenshots
       - name: Upload Videos
+        if: failure()
         uses: actions/upload-artifact@v2
         with:
           name: cypress-ss
