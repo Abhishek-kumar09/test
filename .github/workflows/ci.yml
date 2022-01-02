@@ -166,7 +166,8 @@ jobs:
           tree cypress
           tree ui/cypress/
           rm -rf ui/cypress/integration/e2e
-          mv cypress/integration/e2e ui/cypress/integration/
+          mv cypress/cypress/integration/e2e ui/cypress/integration/
+          tree ui/cypress 
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
