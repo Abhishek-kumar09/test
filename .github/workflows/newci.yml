@@ -1,21 +1,8 @@
-name: Meshery
+name: MeshMap Test
 on:
-#   push:
-#     branches:
-#       - 'master'
-#     paths-ignore:
-#       - 'docs/**'
-#       - 'mesheryctl/**'
-  pull_request:
+  push:
     branches:
       - 'master'
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-
 jobs:
   build-backend:
     name: Backend build
@@ -76,10 +63,10 @@ jobs:
     - name: Install dependencies
       run: |
         cd ui
-        npm i
+        npm ci
         cd ..
         cd provider-ui
-        npm i
+        npm ci
     - name: build meshery-ui
       run: |
         make build-meshery-ui
@@ -135,7 +122,7 @@ jobs:
       - name: Build Next App
         run: |
           cd ui
-          npm i
+          npm ci
           npm run build
           npm run export
       - name: Update /etc/hosts
@@ -162,7 +149,12 @@ jobs:
       - name: install node modules
         run: cd cypress && npm i
       - name: tree
-        run: ls /home/runner/work/test/test/ui/cypress/cypress/integration/e2e/  
+        run: ls /home/runner/work/test/test/ui/cypress/cypress/integration/e2e/
+      - name: Move cypress tests
+        run: |
+          rm -rf ui/cypress/integration/e2e
+          mv cypress/integration/e2e ui/cypress/integration
+          tree ui/cypress
       - name: Cypress run
         uses: cypress-io/github-action@v2
         run: |
@@ -173,8 +165,8 @@ jobs:
           working-directory: ui
           start: npm start
           wait-on: http://localhost:3000
-          spec: /home/runner/work/test/test/ui/cypress/cypress/integration/e2e/**
-          record: true
+          spec: cypress/integration/e2e/**/*
+          record: false
           tag: node-${{ matrix.node }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
