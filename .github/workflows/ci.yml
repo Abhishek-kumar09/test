@@ -165,8 +165,9 @@ jobs:
           pwd
           tree cypress/cypress
           tree ui/cypress/
-          rm -rf ui/cypress/integration/e2e
-          mv cypress/cypress/integration/e2e ui/cypress/integration/
+          rm -rf ui/cypress
+          mv cypress/cypress ui/
+          mv cypress/cypress.json ui/cypress.json
           tree ui/cypress 
       - name: Cypress run
         uses: cypress-io/github-action@v2
@@ -176,7 +177,7 @@ jobs:
           start: npm start
           wait-on: http://localhost:3000
           spec: cypress/integration/e2e/**/*
-          record: false
+          record: true
           tag: node-${{ matrix.node }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
