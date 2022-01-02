@@ -86,47 +86,6 @@ jobs:
     - name: build provider-ui
       run: |
         make build-provider-ui
-  tests-ui:
-    needs: [build-ui]
-    name: UI integration tests
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: actions/setup-node@v1
-      with:
-        node-version: ${{ secrets.NODE_VERSION }}
-    - run: sudo npm i -g npm@7
-    - name: Cache node modules
-      id: node-cache
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/cache
-          ~/.cache
-          !~/cache/exclude
-          **/node_modules
-          /home/runner/.cache
-        key: ${{ runner.os }}-node-${{ hashFiles('**/lockfiles') }}
-    - name: Run tests
-      run: |
-        cd ui
-        npm i
-        npm run ci-test-integration
-        cd ..
-        cd provider-ui
-        npm i
-        npm test
-        cd ..
-    - name: Upload coverage to Codecov (ui)
-      uses: codecov/codecov-action@v1
-      with:
-        files: ./provider-ui/coverage/coverage-summary.json
-        directory: ./provider-ui/coverage/lcov-report
-        flags: integrationtests
-        fail_ci_if_error: true
   tests-ui-e2e:
     needs: [build-backend, build-ui]
     name: UI end-to-end tests
@@ -200,8 +159,11 @@ jobs:
         with:
           fetch-depth: 0
           path: ./cypress
-      - name: install node modules
-        run: npm i
+      - name: Move cypress tests
+        run: |
+          rm -rf ui/cypress/integration/e2e
+          mv cypress/integration/e2e ui/cypress/integration/
+          tree ui/cypress
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
@@ -210,7 +172,7 @@ jobs:
           start: npm start
           wait-on: http://localhost:3000
           spec: cypress/integration/e2e/**/*
-          record: true
+          record: false
           tag: node-${{ matrix.node }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
