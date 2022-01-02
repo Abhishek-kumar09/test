@@ -172,7 +172,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           env: CYPRESS_token=${{secrets.PROVIDER_TOKEN}}
-          working-directory: cypress
+          working-directory: ui
           start: npm start
           wait-on: http://localhost:3000
           spec: cypress/integration/e2e/**/*
