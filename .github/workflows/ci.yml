@@ -76,6 +76,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd ui
+        rm package-lock.json
         npm i
         cd ..
         cd provider-ui
