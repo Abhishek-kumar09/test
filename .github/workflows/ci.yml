@@ -24,6 +24,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@master
         with:
+          repository: meshery/meshery
           fetch-depth: 1
       - name: Setup Go
         uses: actions/setup-go@v3.0.0
