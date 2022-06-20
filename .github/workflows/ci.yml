@@ -135,6 +135,7 @@ jobs:
       - name: Build Next App
         run: |
           cd ui
+          rm package-lock.json
           npm i
           npm run build
           npm run export
