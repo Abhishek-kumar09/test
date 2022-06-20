@@ -54,6 +54,8 @@ jobs:
         cd ..
         cd provider-ui
         npm i
+    - name: show package.json
+      run: cat ui/package.json
     - name: build meshery-ui
       run: |
         make build-meshery-ui
