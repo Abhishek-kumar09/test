@@ -27,7 +27,6 @@ jobs:
         repository: meshery/meshery
         fetch-depth: 1
         path: .
-        ref: Abhi/postcss
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ secrets.NODE_VERSION }}
