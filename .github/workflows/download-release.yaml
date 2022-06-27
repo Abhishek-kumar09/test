@@ -9,6 +9,7 @@ jobs:
     name: fetch release
     runs-on: ubuntu-latest
     steps:
+    - name: Set Release extensions
       run: |
         curl -s https://api.github.com/repos/layer5labs/meshery-extensions-packages/releases >> extension_releases.json
         export TAG=$(jq .[0].tag_name extension_releases.json)
