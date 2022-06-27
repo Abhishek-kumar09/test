@@ -95,7 +95,7 @@ jobs:
       - run: |
           GOPROXY=https://proxy.golang.org,direct GOSUMDB=off GO111MODULE=on go build -tags draft ./cmd/main.go
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v3
         with:
           name: meshery
           path: ./main
@@ -128,31 +128,20 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ secrets.NODE_VERSION }}
-      - name: Cache node modules
-        id: node-cache
-        uses: actions/cache@v3.0.0
-        with:
-          path: |
-            ~/cache
-            ~/.cache
-            /home/runner/.cache
-            !~/cache/exclude
-            **/node_modules
-            /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-node-${{ hashFiles('**/lockfiles') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.1.0
         with:
           cluster_name: "kind-cluster"
-      - name: Build Next App
+      - name: Download Meshery-ui artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: meshery-ui-build
+          path: ui/
+      - name: ls
         run: |
-          cd ui
-          rm package-lock.json
-          npm i
-          npm run build
-          npm run export
+          ls
+          ls ui/
+          ls ui/out/
       - name: Update /etc/hosts
         run: echo "127.0.0.1 mesherylocal.layer5.io" | sudo tee -a /etc/hosts
       - name: Run meshery-consul
