@@ -19,7 +19,7 @@ jobs:
       run: |
         echo ${{env.tag}}
         echo ${{env}}
-        mkdir -p .meshery/provider/Meshery/${TAG}/provider/navigator
+        mkdir -p .meshery/provider/Meshery/${{env.tag}}/provider/navigator
     - name: show tree
       run: tree .meshery/
 
