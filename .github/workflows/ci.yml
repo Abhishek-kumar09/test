@@ -53,6 +53,7 @@ jobs:
         npm i
         cd ..
         cd provider-ui
+        rm package-lock.json
         npm i
     - name: show package.json
       run: cat ui/package.json
