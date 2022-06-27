@@ -174,13 +174,11 @@ jobs:
           mv cypress/cypress ui/
           mv cypress/cypress.json ui/cypress.json
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
           env: CYPRESS_token=${{secrets.PROVIDER_TOKEN}}
           working-directory: ui
-          start: npm ci &&  npm start
-          wait-on: http://localhost:3000
-          spec: cypress/integration/e2e/**/*          
+          spec: cypress/integration/e2e/**/*        
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_token: ${{ secrets.PROVIDER_TOKEN }}
