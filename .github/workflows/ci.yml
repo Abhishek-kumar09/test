@@ -175,8 +175,8 @@ jobs:
         with:
           env: CYPRESS_token=${{secrets.PROVIDER_TOKEN}}
           working-directory: ui
-          start: npm start
-          wait-on: http://localhost:9081
+          start: npm ci &&  npm start
+          wait-on: http://localhost:3000
           spec: cypress/integration/e2e/**/*          
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
