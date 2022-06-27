@@ -24,7 +24,8 @@ jobs:
     - name: Check out code
       uses: actions/checkout@master
       with:
-        repository: meshery/meshery
+        repository: Abhishek-kumar09/meshery
+        ref: Abhi/cytest
         fetch-depth: 1
         path: .
     - uses: actions/setup-node@v3
@@ -78,7 +79,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@master
         with:
-          repository: meshery/meshery
+          repository: Abhishek-kumar09/meshery
+          ref: Abhi/cytest
           fetch-depth: 1
       - name: Setup Go
         uses: actions/setup-go@v3.0.0
@@ -106,7 +108,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
-          repository: meshery/meshery
+          repository: Abhishek-kumar09/meshery
+          ref: Abhi/cytest
           fetch-depth: 1
           path: .
       - name: Check out meshery-consul code
