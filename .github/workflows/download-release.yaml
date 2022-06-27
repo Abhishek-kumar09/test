@@ -1,0 +1,16 @@
+name: Meshery
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  release-manager:
+    name: fetch release
+    run: |
+      curl -s https://api.github.com/repos/layer5labs/meshery-extensions-packages/releases >> extension_releases.json
+      export TAG=$(jq .[0].tag_name extension_releases.json)
+      echo $TAG
+
+
+  
