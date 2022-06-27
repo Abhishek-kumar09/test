@@ -13,10 +13,12 @@ jobs:
       run: |
         curl -s https://api.github.com/repos/layer5labs/meshery-extensions-packages/releases >> extension_releases.json
         export TAG=$(jq .[0].tag_name extension_releases.json)
+        echo "tag=$TAG" >> $GITHUB_ENV
         echo $TAG
     - name: make directories
       run: |
-        echo $TAG
+        echo ${{env.tag}}
+        echo ${{env}}
         mkdir -p .meshery/provider/Meshery/${TAG}/provider/navigator
     - name: show tree
       run: tree .meshery/
