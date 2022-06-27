@@ -17,7 +17,7 @@ jobs:
     - name: make directories
       run: mkdir -p .meshery/provider/Meshery/${TAG}/provider/navigator
     - name: tree
-      run: apt install tree
+      run: sudo apt install tree
     - name: show tree
       run: tree .meshery/
 
