@@ -99,7 +99,7 @@ jobs:
           name: meshery
           path: ./main
   tests-ui-e2e:
-    needs: [build-backend]
+    needs: [build-backend, build-ui]
     name: UI end-to-end tests
     runs-on: ubuntu-latest
     steps:
@@ -131,12 +131,15 @@ jobs:
         uses: helm/kind-action@v1.1.0
         with:
           cluster_name: "kind-cluster"
+      - name: Create a out/ folder in meshery ui
+        run: |
+          mkdir -p ui/out
       - name: Download Meshery-ui artifacts
         uses: actions/download-artifact@v3
         with:
           name: meshery-ui-build
-          path: ui/
-      - name: ls
+          path: ui/out/
+      - name: ls --remove in final version
         run: |
           ls
           ls ui/
