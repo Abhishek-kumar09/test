@@ -15,9 +15,9 @@ jobs:
         export TAG=$(jq .[0].tag_name extension_releases.json)
         echo $TAG
     - name: make directories
-      run: mkdir -p .meshery/provider/Meshery/${TAG}/provider/navigator
-    - name: tree
-      run: sudo apt install tree
+      run: |
+        echo $TAG
+        mkdir -p .meshery/provider/Meshery/${TAG}/provider/navigator
     - name: show tree
       run: tree .meshery/
 
