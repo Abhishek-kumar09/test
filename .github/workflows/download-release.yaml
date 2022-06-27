@@ -20,8 +20,14 @@ jobs:
         echo ${{env.tag}}
         echo ${{env}}
         mkdir -p .meshery/provider/Meshery/${{env.tag}}/provider/navigator
+    - name: Download Meshery Exttension Package Version ${{env.tag}}
+      run: |
+        wget https://github.com/layer5labs/meshery-extensions-packages/releases/download/${{env.tag}}/provider-meshery.tar.gz
+        tar xvz -C .meshery/provider/Meshery/${{env.tag}}/
     - name: show tree
       run: tree .meshery/
+
+
 
 
   
