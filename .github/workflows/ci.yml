@@ -62,11 +62,16 @@ jobs:
     - name: build provider-ui
       run: |
         make build-provider-ui
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3.0.0
+    - name: upload meshery-ui artifact
+      uses: actions/upload-artifact@v3
       with:
-        name: build-output
-        path: ui/out
+        name: meshery-ui-build
+        path: ui/out/
+    - name: upload Meshery-provider-ui artifacts
+      uses: actions/upload-artifact@v3
+      with: 
+        name: meshery-provider-ui build
+        path: provider-ui/out/
   build-backend:
     name: Backend build
     runs-on: ubuntu-latest
@@ -103,12 +108,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: meshery/meshery
-          fetch-depth: 0
+          fetch-depth: 1
           path: .
-          ref: Abhi/postcss
       - name: Check out meshery-consul code
         uses: actions/checkout@v2
         with:
+          fetch-depth: 1
           repository: layer5io/meshery-consul
           path: ./meshery-consul
       - name: Download artifacts
@@ -167,7 +172,7 @@ jobs:
       - name: checkout cypress code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 1
           path: ./cypress
       - name: Move cypress tests
         run: |
