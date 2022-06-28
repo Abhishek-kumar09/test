@@ -24,8 +24,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@master
       with:
-        repository: Abhishek-kumar09/meshery
-        ref: Abhi/cytest
+        repository: meshery/meshery
         fetch-depth: 1
         path: .
     - uses: actions/setup-node@v3
@@ -80,8 +79,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@master
         with:
-          repository: Abhishek-kumar09/meshery
-          ref: Abhi/cytest
+          repository: meshery/meshery
           fetch-depth: 1
       - name: Setup Go
         uses: actions/setup-go@v3.0.0
@@ -109,8 +107,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
-          repository: Abhishek-kumar09/meshery
-          ref: Abhi/cytest
+          repository: meshery/meshery
           fetch-depth: 1
           path: .
       - name: Check out meshery-consul code
@@ -198,13 +195,11 @@ jobs:
           CYPRESS_token: ${{ secrets.PROVIDER_TOKEN }}
           CYPRESS_releasetag: ${{env.tag}}
       - name: Upload artifacts
-        if: failure()
         uses: actions/upload-artifact@v3.0.0
         with:
           name: cypress-ss
           path: ui/cypress/screenshots
       - name: Upload Videos
-        if: failure()
         uses: actions/upload-artifact@v3.0.0
         with:
           name: cypress-ss
