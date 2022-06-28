@@ -3,6 +3,7 @@
   "projectId": "mesheryExt",
   "env": {
     "token": "",
+    "releaseTag": "not specified",
     "codeCoverage": {
       "url": "/api/__coverage__"
     }
