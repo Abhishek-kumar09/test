@@ -159,7 +159,7 @@ jobs:
         run: |
           echo ${{env.tag}}
           echo ${{env}}
-          mkdir -p .meshery/provider/Meshery/${{env.tag}}/provider/navigator
+          mkdir -p /home/runner/.meshery/provider/Meshery/${{env.tag}}/provider/navigator
       - name: Run backend
         env:
           PROVIDER_BASE_URLS: https://meshery.layer5.io
@@ -172,7 +172,7 @@ jobs:
       - name: Download Meshery Extension Package Version ${{env.tag}}
         run: |
           wget https://github.com/layer5labs/meshery-extensions-packages/releases/download/${{env.tag}}/provider-meshery.tar.gz 
-          tar -xzf   provider-meshery.tar.gz -C .meshery/provider/Meshery/${{env.tag}}
+          tar -xzf   provider-meshery.tar.gz -C /home/runner/.meshery/provider/Meshery/${{env.tag}}
       - name: show tree
         run: tree .meshery/
       - name: show runner tree
