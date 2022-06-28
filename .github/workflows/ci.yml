@@ -161,6 +161,23 @@ jobs:
           cd cmd
           chmod +x ./main
           ./main &
+      - name: Set Release extensions
+        run: |
+        curl -s https://api.github.com/repos/layer5labs/meshery-extensions-packages/releases >> extension_releases.json
+        export TAG=$(jq .[0].tag_name extension_releases.json)
+        echo "tag=$TAG" >> $GITHUB_ENV
+        echo $TAG
+      - name: make directories
+        run: |
+          echo ${{env.tag}}
+          echo ${{env}}
+          mkdir -p .meshery/provider/Meshery/${{env.tag}}/provider/navigator
+      - name: Download Meshery Extension Package Version ${{env.tag}}
+        run: |
+          wget https://github.com/layer5labs/meshery-extensions-packages/releases/download/${{env.tag}}/provider-meshery.tar.gz 
+          tar -xzf   provider-meshery.tar.gz -C .meshery/provider/Meshery/${{env.tag}}
+      - name: show tree
+        run: tree .meshery/
       - name: checkout cypress code
         uses: actions/checkout@v2
         with:
@@ -174,12 +191,12 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          env: CYPRESS_token=${{secrets.PROVIDER_TOKEN}}
           working-directory: ui
           spec: cypress/integration/e2e/**/*        
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_token: ${{ secrets.PROVIDER_TOKEN }}
+          CYPRESS_releasetag: ${{env.tag}}
       - name: Upload artifacts
         if: failure()
         uses: actions/upload-artifact@v3.0.0
