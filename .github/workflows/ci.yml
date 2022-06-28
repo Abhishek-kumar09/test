@@ -195,12 +195,14 @@ jobs:
           CYPRESS_token: ${{ secrets.PROVIDER_TOKEN }}
           CYPRESS_releasetag: ${{env.tag}}
       - name: Upload artifacts
+        if: always()
         uses: actions/upload-artifact@v3.0.0
         with:
           name: cypress-ss
           path: ui/cypress/screenshots
       - name: Upload Videos
         uses: actions/upload-artifact@v3.0.0
+        if: always()
         with:
           name: cypress-ss
           path: ui/cypress/videos
