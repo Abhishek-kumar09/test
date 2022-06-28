@@ -48,12 +48,10 @@ jobs:
     - name: Install dependencies
       run: |
         cd ui
-        rm package-lock.json
-        npm i
+        npm ci
         cd ..
         cd provider-ui
-        rm package-lock.json
-        npm i
+        npm ci
     - name: show package.json
       run: cat ui/package.json
     - name: build meshery-ui
