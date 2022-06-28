@@ -31,6 +31,7 @@ describe("Login", () => {
     cy.visit("/")
     cy.wait("@getCapabilites")
     cy.get('[data-cy="MeshMap"]').click();
+    cy.wait(10*1000)
     cy.contains("MeshMap")
     cy.contains("Components")
     cy.contains("Designs")
