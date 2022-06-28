@@ -191,8 +191,6 @@ jobs:
           working-directory: ui
           spec: cypress/integration/e2e/**/*
           browser: chrome 
-          record: true
-          install: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_token: ${{ secrets.PROVIDER_TOKEN }}
