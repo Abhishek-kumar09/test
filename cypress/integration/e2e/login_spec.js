@@ -12,10 +12,40 @@ function altercapabilityFixture(version) {
   })
 }
 
+describe("Check API behaviour", () => {
+  beforeEach(()=>{
+    const token = Cypress.env('token')
+    const releasetag = Cypress.env("releasetag")
+    cy.setCookie("meshery-provider", "Meshery")
+    cy.setCookie("token", token)
+    window.localStorage.setItem("mode", "designer")
+    window.localStorage.setItem("tab", 0)
+    altercapabilityFixture(releasetag)
+  })
+
+  it("check response status", () => {
+    cy.visit("/api/provider/extension/provider")
+  })
+
+  it("check resonse", () => {
+    cy.request("/api/provider/extension/").as("api")
+    cy.get("@api").then(res => {
+      console.log("res here", res)
+    })
+  })
+
+  it("check resonse2", () => {
+    cy.request("/api/provider/extension/").as("api")
+    cy.get("@api").then(res => {
+      console.log("res here", res)
+    })
+  })
+})
+
 describe("Login", () => {
   before(()=>{
     const token = Cypress.env('token')
-    const releasetag = Cypress.env("releaseTag")
+    const releasetag = Cypress.env("releasetag")
     cy.setCookie("meshery-provider", "Meshery")
     cy.setCookie("token", token)
     window.localStorage.setItem("mode", "designer")
@@ -31,7 +61,6 @@ describe("Login", () => {
     cy.visit("/")
     cy.wait("@getCapabilites")
     cy.get('[data-cy="MeshMap"]').click();
-    cy.wait(10*1000)
     cy.contains("MeshMap")
     cy.contains("Components")
     cy.contains("Designs")
