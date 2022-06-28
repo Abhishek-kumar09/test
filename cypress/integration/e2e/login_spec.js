@@ -23,10 +23,6 @@ describe("Check API behaviour", () => {
     altercapabilityFixture(releasetag)
   })
 
-  it("check response status", () => {
-    cy.visit("/api/provider/extension/provider")
-  })
-
   it("check resonse", () => {
     cy.request("/api/provider/extension/").as("api")
     cy.get("@api").then(res => {
@@ -36,6 +32,20 @@ describe("Check API behaviour", () => {
 
   it("check resonse2", () => {
     cy.request("/api/provider/extension/").as("api")
+    cy.get("@api").then(res => {
+      console.log("res here", res)
+    })
+  })
+
+  it("check resonse3", () => {
+    cy.request("/api/provider/extension/provider/navigator/meshmap/index.js").as("api")
+    cy.get("@api").then(res => {
+      console.log("res here", res)
+    })
+  })
+
+  it("check resonse3", () => {
+    cy.request("/api/provider/extension/provider/navigator/").as("api")
     cy.get("@api").then(res => {
       console.log("res here", res)
     })
@@ -61,6 +71,19 @@ describe("Login", () => {
     cy.visit("/")
     cy.wait("@getCapabilites")
     cy.get('[data-cy="MeshMap"]').click();
+    cy.wait(3000)
+    cy.contains("MeshMap")
+    cy.contains("Components")
+    cy.contains("Designs")
+    cy.contains("Applications")
+    cy.contains("Filters")
+  });
+
+  it("Visit MeshMap Designer", () => {
+    cy.visit("/")
+    cy.wait("@getCapabilites")
+    cy.get('[data-cy="MeshMap"]').click();
+    cy.wait(5000)
     cy.contains("MeshMap")
     cy.contains("Components")
     cy.contains("Designs")
