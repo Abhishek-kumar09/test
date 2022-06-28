@@ -23,9 +23,11 @@ jobs:
     - name: Download Meshery Exttension Package Version ${{env.tag}}
       run: |
         wget https://github.com/layer5labs/meshery-extensions-packages/releases/download/${{env.tag}}/provider-meshery.tar.gz 
-        tar -xzf   provider-meshery.tar.gz -C .meshery/provider/Meshery/${{env.tag}}
+        tar -xzf   provider-meshery.tar.gz -C /home/runner/.meshery/provider/Meshery/${{env.tag}}
     - name: show tree
       run: tree .meshery/
+    - name: show runner tree
+      run: tree /home/runner/.meshery
 
 
 
