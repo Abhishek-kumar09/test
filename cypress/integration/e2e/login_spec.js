@@ -12,14 +12,21 @@ function altercapabilityFixture(version) {
   })
 }
 
+const MODES = {
+  DESIGNER: "designer",
+  VISUALISER: "visualiser"
+}
+
+function setMode(mode) {
+  window.localStorage.setItem("mode", mode)
+}
 
 describe("Login", () => {
-  before(()=>{
+  beforeEach(()=>{
     const token = Cypress.env('token')
     const releasetag = Cypress.env("releasetag")
     cy.setCookie("meshery-provider", "Meshery")
     cy.setCookie("token", token)
-    window.localStorage.setItem("mode", "designer")
     window.localStorage.setItem("tab", 0)
     altercapabilityFixture(releasetag)
   })
@@ -29,6 +36,7 @@ describe("Login", () => {
   })
 
   it("Visit MeshMap Designer", () => {
+    setMode(MODES.DESIGNER);
     cy.visit("/")
     cy.wait("@getCapabilites")
     cy.get('[data-cy="MeshMap"]').click();
@@ -40,56 +48,16 @@ describe("Login", () => {
     cy.contains("Filters")
   });
 
-  it("Visit MeshMap Designer", () => {
-    cy.visit("/")
+  it("Visit MeshMap Visualiser", () => {
+    setMode(MODES.VISUALISER)
+    cy.visit("/extension/meshmap")
     cy.wait("@getCapabilites")
-    cy.get('[data-cy="MeshMap"]').click();
-    cy.wait(5000)
+    cy.wait(15000)
     cy.contains("MeshMap")
-    cy.contains("Components")
-    cy.contains("Designs")
-    cy.contains("Applications")
-    cy.contains("Filters")
+    cy.contains("View Selector")
+    //tabs
+    cy.contains("Details")
+    cy.contains("Metrics")
+    cy.contains("Actions")
   });
-})
-
-
-describe("Check API behaviour", () => {
-  beforeEach(()=>{
-    const token = Cypress.env('token')
-    const releasetag = Cypress.env("releasetag")
-    cy.setCookie("meshery-provider", "Meshery")
-    cy.setCookie("token", token)
-    window.localStorage.setItem("mode", "designer")
-    window.localStorage.setItem("tab", 0)
-    altercapabilityFixture(releasetag)
-  })
-
-  it("check resonse", () => {
-    cy.request("/api/provider/extension/").as("api")
-    cy.get("@api").then(res => {
-      console.log("res here", res)
-    })
-  })
-
-  it("check resonse2", () => {
-    cy.request("/api/provider/extension/").as("api")
-    cy.get("@api").then(res => {
-      console.log("res here", res)
-    })
-  })
-
-  it("check resonse3", () => {
-    cy.request("/api/provider/extension/provider/navigator/meshmap/index.js").as("api")
-    cy.get("@api").then(res => {
-      console.log("res here", res)
-    })
-  })
-
-  it("check resonse3", () => {
-    cy.request("/api/provider/extension/provider/navigator/").as("api")
-    cy.get("@api").then(res => {
-      console.log("res here", res)
-    })
-  })
 })
