@@ -160,10 +160,10 @@ jobs:
           ./main &
       - name: Set Release extensions
         run: |
-        curl -s https://api.github.com/repos/layer5labs/meshery-extensions-packages/releases >> extension_releases.json
-        export TAG=$(jq .[0].tag_name extension_releases.json)
-        echo "tag=$TAG" >> $GITHUB_ENV
-        echo $TAG
+          curl -s https://api.github.com/repos/layer5labs/meshery-extensions-packages/releases >> extension_releases.json
+          export TAG=$(jq .[0].tag_name extension_releases.json)
+          echo "tag=$TAG" >> $GITHUB_ENV
+          echo $TAG
       - name: make directories
         run: |
           echo ${{env.tag}}
