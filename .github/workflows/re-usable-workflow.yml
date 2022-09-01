@@ -1,0 +1,27 @@
+
+name: Using Re-usable Workflow files
+on:
+#   push:
+#     branches:
+#       - 'master'
+#     paths-ignore:
+#       - 'docs/**'
+#       - 'mesheryctl/**'
+  pull_request:
+    branches:
+      - 'master'
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+
+jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master
+        with:
+          NODE_VERSION: "v16.15.1"
+          GO_VERSION: 1.17
