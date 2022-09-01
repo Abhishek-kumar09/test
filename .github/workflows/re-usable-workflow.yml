@@ -22,7 +22,7 @@ jobs:
     secrets:
       NODE_VERSION: "v16.15.1"
       GO_VERSION: "1.17"
-tests-ui-e2e:
+  tests-ui-e2e:
     needs: [reusable_workflow_job]
     name: UI end-to-end tests
     runs-on: ubuntu-latest
