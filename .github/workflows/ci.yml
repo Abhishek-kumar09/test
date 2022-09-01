@@ -73,7 +73,7 @@ jobs:
   build-backend:
     name: Backend build
     runs-on: ubuntu-latest
-    steps:
+   steps:
       - name: Check out code
         uses: actions/checkout@master
         with:
@@ -89,14 +89,15 @@ jobs:
           path: ~/go/pkg/mod
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
-            ${{ runner.os }}-go-      
+            ${{ runner.os }}-go-
       - run: |
-          GOPROXY=https://proxy.golang.org,direct GOSUMDB=off GO111MODULE=on go build -tags draft ./cmd/main.go
+          GOPROXY=https://proxy.golang.org,direct GOSUMDB=off GO111MODULE=on go build -tags draft ./server/cmd/main.go ./server/cmd/error.go
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.0.0
         with:
           name: meshery
           path: ./main
+
   tests-ui-e2e:
     needs: [build-backend, build-ui]
     name: UI end-to-end tests
