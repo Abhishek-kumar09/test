@@ -18,8 +18,7 @@ on:
 
 jobs:
   reusable_workflow_job:
-    runs-on: ubuntu-latest
     uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master
-    with:
+    secrets:
       NODE_VERSION: "v16.15.1"
       GO_VERSION: 1.17
