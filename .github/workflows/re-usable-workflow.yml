@@ -21,4 +21,4 @@ jobs:
     uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master
     secrets:
       NODE_VERSION: "v16.15.1"
-      GO_VERSION: 1.17
+      GO_VERSION: "1.17"
