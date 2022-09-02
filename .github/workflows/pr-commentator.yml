@@ -5,7 +5,7 @@ on:
 
 jobs:
   comment-on-pr:
-    # if: github.event.action == 'dispatch-pr-comment'
+    if: github.event.action == 'dispatch-pr-comment'
     runs-on: ubuntu-latest
     steps:
       - name: PR comment with reactions
