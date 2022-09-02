@@ -28,7 +28,7 @@ jobs:
       - name: Checkout Meshery-extensions code
         uses: actions/checkout@v3
         with:
-          repository: layer5io/meshery-extensions
+          repository: layer5labs/meshery-extensions
           path: ./meshery-extensions
           fetch-depth: 1
           ref: "master" # TODO: change to dynamic branch name
@@ -45,7 +45,7 @@ jobs:
         run: make
       - name: Show runner tree
         run: tree /home/runner/.meshery
-        
+
   # tests-ui-e2e:
   #   needs: [build-ui-and-server]
   #   name: UI end-to-end tests
