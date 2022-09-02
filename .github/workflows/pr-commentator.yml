@@ -20,4 +20,3 @@ jobs:
           reactions: eyes, rocket
           pr_number: ${{ env.PULL_NO }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
