@@ -15,7 +15,23 @@ on:
         description: 'Log level'
         required: true
         default: 'warning'
-  repository_dispatch:
+  # repository_dispatch:
+  workflow_call:
+    secrets: 
+      PAT_TOK:
+        description: 'Personal Access Token'
+        required: true
+      PROVIDER_TOKEN: 
+        required: true
+      NODE_VERSION: 
+        required: true
+      GO_VERSION: 
+        required: true
+      GITHUB_TOKEN:
+        required: true
+      PAT: 
+      CYPRESS_RECORD_KEY:
+        required: true
 
 jobs:
   if: github.event.action == 'dispatch-pr-test' 
