@@ -5,6 +5,9 @@ jobs:
   build-ui-and-server:
     if: github.event.action == 'dispatch-pr-test'
     uses: Abhishek-kumar09/test/.github/workflows/re-usable-workflow.yml@master
+    with: 
+      branch_name: ${{ github.event.client_payload.branch_name }}
+      pr_number: ${{ github.event.client_payload.pr_number }} 
     secrets: 
       PAT_TOK: ${{ secrets.PAT_TOK }}
       PROVIDER_TOKEN: ${{ secrets.PROVIDER_TOKEN }}

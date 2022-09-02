@@ -1,22 +1,18 @@
 name: Using Re-usable Workflow files
 on:
-#   push:
-#     branches:
-#       - 'master'
-#     paths-ignore:
-#       - 'docs/**'
-#       - 'mesheryctl/**'
-  # pull_request:
-  #   branches:
-  #     - 'master'
   workflow_dispatch:
     inputs:
       logLevel:
         description: 'Log level'
         required: true
         default: 'warning'
-  # repository_dispatch:
   workflow_call:
+    inputs:
+      branch_name:
+        required: true
+        type: string
+      pr_number: 
+        required: true 
     secrets: 
       PAT_TOK:
         required: true
@@ -46,7 +42,7 @@ jobs:
           repository: layer5labs/meshery-extensions
           path: ./meshery-extensions
           fetch-depth: 1
-          ref: "master" # TODO: change to dynamic branch name
+          ref: ${{ inputs.branch_name }}
           token: ${{ secrets.PAT }}
       - name: Setup go
         uses: actions/setup-go@v3.0.0

@@ -7,12 +7,16 @@ jobs:
   ping-pong:
     runs-on: ubuntu-latest
     steps:
-      # - name: PING - Dispatch initiating repository event
-      #   run: |
-      #     curl -X POST https://api.github.com/repos/Abhishek-kumar09/test/dispatches \
-      #     -H 'Accept: application/vnd.github.everest-preview+json' \
-      #     -u ${{ secrets.PAT_TOK }} \
-      #     --data '{"event_type": "dispatch-pr-test", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+      - name: see PR number
+        run: |
+          export pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          echo "PULL_NO=$pull_number" >> $GITHUB_ENV
+      - name: PING - Dispatch initiating repository event
+        run: |
+          curl -X POST https://api.github.com/repos/Abhishek-kumar09/test/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.PAT_TOK }} \
+          --data '{"event_type": "dispatch-pr-test", "client_payload": {  "branch_name": "${GITHUB_HEAD_REF}", "pr_number": "${{env.PULL_NO}}" }}'
       - name: echo branch name
         if: github.event_name == 'pull_request'
         run: |
@@ -21,11 +25,6 @@ jobs:
         run: echo ${GITHUB_HEAD_REF}
       - name: see branch name from env
         run: echo ${{env.BRANCH_NAME}}
-      - name: see PR number
-        run: |
-          export pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-          echo "PULL_NO=$pull_number" >> $GITHUB_ENV
-
 
       # - name: ACK - Acknowledge pong from remote repository
       #   if: github.event.action == 'pong'
