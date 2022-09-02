@@ -15,9 +15,12 @@ jobs:
       #     --data '{"event_type": "dispatch-pr-test", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
       - name: echo branch name
         if: github.event_name == 'pull_request'
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+        run: |
+          echo tag=$BRANCH_NAME >> $GITHUB_HEAD_REF 
       - name: see branch name
         run: echo ${GITHUB_HEAD_REF}
+      - name: see branch name from env
+        run: echo ${{env.BRANCH_NAME}}
 
 
       # - name: ACK - Acknowledge pong from remote repository
