@@ -33,7 +33,6 @@ on:
         required: true
 
 jobs:
-  if: github.event.action == 'dispatch-pr-test' 
   build-ui-and-server:
     # if: github.event.action == 'dispatch-pr-test'
     uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master # build-ui-server-reusable-workflow.yml 
