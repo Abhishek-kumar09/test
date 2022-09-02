@@ -37,12 +37,6 @@ jobs:
         uses: actions/setup-go@v3.0.0
         with:
           go-version: "1.17"
-      - name: run go
-        run: | 
-          go1.17 version
-          go version
-          go1.17 env
-          go env
       - name:  setup node
         uses: actions/setup-node@v3
         with:
