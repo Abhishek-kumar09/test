@@ -24,7 +24,7 @@ jobs:
       - name: see PR number
         run: |
           export pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-          echo ${pull_number}
+          echo "PULL_NO=$pull_number" >> $GITHUB_ENV
 
 
       # - name: ACK - Acknowledge pong from remote repository
