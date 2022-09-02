@@ -5,15 +5,18 @@ on:
 
 jobs:
   comment-on-pr:
-    if: github.event.action == 'dispatch-pr-comment'
+    # if: github.event.action == 'dispatch-pr-comment'
     runs-on: ubuntu-latest
     steps:
+      - name: Set PR number
+        run: |
+          export pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          echo "PULL_NO=$pull_number" >> $GITHUB_ENV
       - name: PR comment with reactions
         uses: thollander/actions-comment-pull-request@v1
         with:
           message: |
             Commented from the github actions ! :wave:
           reactions: eyes, rocket
+          pr_number: ${{ env.PULL_NO }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: event type
-        run: echo ${{ github.event.event_type }}
