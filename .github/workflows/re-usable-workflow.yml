@@ -53,7 +53,7 @@ jobs:
           path: /home/runner/.meshery/provider/Meshery/undefined/provider
           retention-days: 1
   tests-ui-e2e:
-    needs: [build-ui-and-server]
+    needs: [build-ui-and-server, build-meshery-extension]
     name: UI end-to-end tests
     runs-on: ubuntu-latest
     steps:
@@ -146,12 +146,12 @@ jobs:
           working-directory: ui
           spec: cypress/integration/e2e/**/*
           browser: chrome 
-          record: true
+          # record: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_token: ${{ secrets.PROVIDER_TOKEN }}
           CYPRESS_releasetag: ${{env.tag}}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
       - name: Upload artifacts
         if: always()
         uses: actions/upload-artifact@v3
