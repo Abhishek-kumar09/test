@@ -1,17 +1,24 @@
 name: Remote Dispatch Action Initiator
 on:
   workflow_dispatch:
+  pull_request:
 
 jobs:
   ping-pong:
     runs-on: ubuntu-latest
     steps:
-      - name: PING - Dispatch initiating repository event
-        run: |
-          curl -X POST https://api.github.com/repos/Abhishek-kumar09/test/dispatches \
-          -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ secrets.PAT_TOK }} \
-          --data '{"event_type": "dispatch-pr-test", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+      # - name: PING - Dispatch initiating repository event
+      #   run: |
+      #     curl -X POST https://api.github.com/repos/Abhishek-kumar09/test/dispatches \
+      #     -H 'Accept: application/vnd.github.everest-preview+json' \
+      #     -u ${{ secrets.PAT_TOK }} \
+      #     --data '{"event_type": "dispatch-pr-test", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+      - name: echo branch name
+        if: github.event_name == 'pull_request'
+        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+      - name: see branch name
+        run: echo ${GITHUB_HEAD_REF}
+
 
       # - name: ACK - Acknowledge pong from remote repository
       #   if: github.event.action == 'pong'
