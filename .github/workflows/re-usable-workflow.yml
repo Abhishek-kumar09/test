@@ -10,8 +10,10 @@ on:
     inputs:
       branch_name:
         required: true
+        type: string
       pr_number: 
-        required: true 
+        required: false 
+        type: number
     secrets: 
       PAT_TOK:
         required: true
