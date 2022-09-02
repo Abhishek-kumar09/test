@@ -17,11 +17,11 @@ on:
         default: 'warning'
 
 jobs:
-  build-ui-and-server:
-    uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master # build-ui-server-reusable-workflow.yml 
-    secrets:
-      NODE_VERSION: "v16.15.1"
-      GO_VERSION: "1.17"
+  # build-ui-and-server:
+  #   uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master # build-ui-server-reusable-workflow.yml 
+  #   secrets:
+  #     NODE_VERSION: "v16.15.1"
+  #     GO_VERSION: "1.17"
   build-meshery-extension: 
     runs-on: ubuntu-latest
     steps:
@@ -43,7 +43,7 @@ jobs:
           node-version: ${{ secrets.NODE_VERSION }}
       - name: Build Meshery Extension UI
         working-directory: ./meshery-extensions
-        run: make meshmap
+        run: make v=
       - name: Show runner tree
         run: tree /home/runner/.meshery
 
