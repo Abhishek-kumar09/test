@@ -1,22 +1,18 @@
 name: Using Re-usable Workflow files
 on:
-#   push:
-#     branches:
-#       - 'master'
-#     paths-ignore:
-#       - 'docs/**'
-#       - 'mesheryctl/**'
-  pull_request:
-    branches:
-      - 'master'
   workflow_dispatch:
     inputs:
       logLevel:
         description: 'Log level'
         required: true
         default: 'warning'
-  # repository_dispatch:
   workflow_call:
+    inputs:
+      branch_name:
+        required: true
+        type: string
+      pr_number: 
+        required: true 
     secrets: 
       PAT_TOK:
         required: true
@@ -27,18 +23,17 @@ on:
       GO_VERSION: 
         required: true
       PAT: 
+        required: true
       CYPRESS_RECORD_KEY:
         required: true
 
 jobs:
   build-ui-and-server:
-    # if: github.event.action == 'dispatch-pr-test'
     uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master # build-ui-server-reusable-workflow.yml 
     secrets:
       NODE_VERSION: "v16.15.1"
       GO_VERSION: "1.17"
   build-meshery-extension: 
-    # if: github.event.action == 'dispatch-pr-test'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Meshery-extensions code
@@ -47,7 +42,7 @@ jobs:
           repository: layer5labs/meshery-extensions
           path: ./meshery-extensions
           fetch-depth: 1
-          ref: "master" # TODO: change to dynamic branch name
+          ref: ${{ inputs.branch_name }}
           token: ${{ secrets.PAT }}
       - name: Setup go
         uses: actions/setup-go@v3.0.0
@@ -72,7 +67,6 @@ jobs:
     needs: [build-ui-and-server, build-meshery-extension]
     name: UI end-to-end tests
     runs-on: ubuntu-latest
-    # if: github.event.action == 'dispatch-pr-test'
     steps:
       - name: Check out Meshery code
         uses: actions/checkout@v3

@@ -34,8 +34,3 @@ jobs:
       run: tree .meshery/
     - name: show runner tree
       run: tree /home/runner/.meshery
-
-
-
-
-  
