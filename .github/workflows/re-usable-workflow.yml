@@ -122,7 +122,7 @@ jobs:
           cd cmd
           chmod +x ./main
           BUILD=${{env.tag}} ./main &
-      - name Download Meshery-extension-ui artifacts
+      - name: Download Meshery-extension-ui artifacts
         uses: actions/download-artifact@v3
         with:
           name: meshery-extension-ui
