@@ -26,8 +26,6 @@ on:
         required: true
       GO_VERSION: 
         required: true
-      GITHUB_TOKEN:
-        required: true
       PAT: 
       CYPRESS_RECORD_KEY:
         required: true
