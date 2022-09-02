@@ -19,7 +19,6 @@ on:
   workflow_call:
     secrets: 
       PAT_TOK:
-        description: 'Personal Access Token'
         required: true
       PROVIDER_TOKEN: 
         required: true
