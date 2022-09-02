@@ -10,7 +10,6 @@ on:
     inputs:
       branch_name:
         required: true
-        type: string
       pr_number: 
         required: true 
     secrets: 
