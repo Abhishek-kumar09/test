@@ -16,7 +16,7 @@ jobs:
       - name: echo branch name
         if: github.event_name == 'pull_request'
         run: |
-          echo tag=$BRANCH_NAME >> $GITHUB_HEAD_REF 
+          echo "BRANCH_NAME=$GITHUB_HEAD_REF" >> $GITHUB_ENV 
       - name: see branch name
         run: echo ${GITHUB_HEAD_REF}
       - name: see branch name from env
