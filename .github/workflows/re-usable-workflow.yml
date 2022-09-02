@@ -126,7 +126,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: meshery-extension-ui
-          path: /home/runner/.meshery/provider/Meshery/${{env.tag}}/provider
+          path: provider
+      - name: Move provider files
+        run: |
+          mv provider/ /home/runner/.meshery/provider/Meshery/${{env.tag}}/provider/
       - name: show runner tree
         run: tree /home/runner/.meshery
       - name: checkout cypress code
