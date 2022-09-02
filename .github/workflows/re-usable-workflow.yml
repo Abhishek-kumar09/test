@@ -17,11 +17,11 @@ on:
         default: 'warning'
 
 jobs:
-  # build-ui-and-server:
-  #   uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master # build-ui-server-reusable-workflow.yml 
-  #   secrets:
-  #     NODE_VERSION: "v16.15.1"
-  #     GO_VERSION: "1.17"
+  build-ui-and-server:
+    uses: Abhishek-kumar09/meshery/.github/workflows/build-ui-and-server.yml@master # build-ui-server-reusable-workflow.yml 
+    secrets:
+      NODE_VERSION: "v16.15.1"
+      GO_VERSION: "1.17"
   build-meshery-extension: 
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +34,7 @@ jobs:
           ref: "master" # TODO: change to dynamic branch name
           token: ${{ secrets.PAT }}
       - name: Setup go
-        uses: actions/setup-go@v2.0.0
+        uses: actions/setup-go@v3.0.0
         with:
           go-version: "1.17"
       - name: run go
@@ -49,7 +49,7 @@ jobs:
           node-version: ${{ secrets.NODE_VERSION }}
       - name: Build Meshery Extension UI
         working-directory: ./meshery-extensions
-        run: make
+        run: make meshmap
       - name: Show runner tree
         run: tree /home/runner/.meshery
 
