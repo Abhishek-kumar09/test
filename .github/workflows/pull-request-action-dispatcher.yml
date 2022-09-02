@@ -5,5 +5,4 @@ jobs:
   build-ui-and-server:
     if: github.event.action == 'dispatch-pr-test'
     uses: Abhishek-kumar09/test/.github/workflows/re-usable-workflow.yml@master
-    secrets:
-      secrets: inherit
+    secrets: inherit
