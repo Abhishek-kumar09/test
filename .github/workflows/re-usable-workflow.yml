@@ -34,7 +34,7 @@ jobs:
           ref: "master" # TODO: change to dynamic branch name
           token: ${{ secrets.PAT }}
       - name: Setup go
-        uses: actions/setup-go@v3.0.0
+        uses: actions/setup-go@v2.0.0
         with:
           go-version: "1.17"
       - name: run go
