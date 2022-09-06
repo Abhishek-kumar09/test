@@ -4,14 +4,16 @@ on:
   pull_request:
 
 jobs:
-  steps: 
-  - name: Send the acknowledgement
-    if: always()
-    uses: peter-evans/create-or-update-comment@v1
-    with:
-      token: ${{ secrets.PAT }}
-      issue-number: 1174
-      repository: layer5labs/meshery-extensions
-      body: |
-        Your Test results are ready to be seen. 
-      reactions: rocket
+  job-name:
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Send the acknowledgement
+      if: always()
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        token: ${{ secrets.PAT }}
+        issue-number: 1174
+        repository: layer5labs/meshery-extensions
+        body: |
+          Your Test results are ready to be seen. 
+        reactions: rocket
