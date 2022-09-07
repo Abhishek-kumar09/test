@@ -187,6 +187,8 @@ jobs:
           rm ui/cypress.json
           mv cypress/cypress ui/
           mv cypress/cypress.config.js ui/cypress.config.js
+      - name: Show tree
+        run: tree ui/ -L 4
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
